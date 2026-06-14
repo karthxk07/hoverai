@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>hoverai.</h1>
+    </div>
+
+    <div class="section">
+      <div class="row">
+        <span>Enabled</span>
+        <label class="switch">
+          <input type="checkbox" id="enabled-toggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="section">
+      <label for="theme-select">Theme</label>
+      <select id="theme-select">
+        <option value="dark">Dark (Default)</option>
+        <option value="light">Light</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <label for="ai-select">AI Provider</label>
+      <select id="ai-select">
+        <option value="https://chatgpt.com">ChatGPT</option>
+        <option value="https://claude.ai">Claude</option>
+        <option value="https://gemini.google.com">Gemini</option>
+        <option value="custom">Custom URL</option>
+      </select>
+      <input type="text" id="custom-url" class="hidden" placeholder="Enter URL (e.g. https://...)">
+    </div>
+
+    <div class="footer">
+      <!-- Save button removed as changes are now instant -->
+    </div>
+
+    <div class="section shortcut-info">
+      <label>Keyboard Shortcut</label>
+      <div class="shortcut-key">Ctrl+Shift+Y (Windows/Linux)</div>
+      <div class="shortcut-key">Cmd+Shift+Y (Mac)</div>
+      <p class="shortcut-note">If the shortcut doesn't work, go to <code>chrome://extensions/shortcuts</code> and set it manually for "Toggle hoverai on/off".</p>
+    </div>
+  </div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

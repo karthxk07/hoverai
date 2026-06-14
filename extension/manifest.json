@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "hoverai",
+  "version": "1.0",
+
+  "permissions": ["storage", "clipboardWrite"],
+  
+  "host_permissions": [
+    "http://localhost/*",
+    "http://localhost:3000/*",
+    "http://127.0.0.1/*",
+    "http://127.0.0.1:3000/*"
+  ],
+  
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' http://localhost:5174; object-src 'self'; connect-src http://localhost:3000 http://127.0.0.1:3000 http://localhost:5174"
+  },
+
+  "action": {
+    "default_popup": "popup.html"
+  },
+
+  "background": {
+    "service_worker": "src/background.js"
+  },
+
+  "commands": {
+    "toggle-extension": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Toggle hoverai on/off"
+    }
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"],
+      "css" : ["src/style.css"]
+    }
+  ]
+}

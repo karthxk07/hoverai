@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install root dependencies (if any)
+        run: npm ci
+
+      - name: Install extension dependencies
+        working-directory: ./extension
+        run: npm ci
+
+      - name: Install server dependencies
+        working-directory: ./server
+        run: npm ci
+
+      - name: Run Jest tests (extension)
+        working-directory: ./extension
+        run: npm test -- --runInBand
+
+      - name: Run Jest tests (server)
+        working-directory: ./server
+        run: npx jest --detectOpenHandles --forceExit
+
+      - name: Build Chrome extension
+        working-directory: ./extension
+        run: npm run build
+
+      - name: Archive built extension
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hoverai-extension-dist
+          path: ./extension/dist/**
+
+      - name: Lint (optional)
+        # If you add ESLint later you can enable this step
+        run: echo "No lint step configured"
