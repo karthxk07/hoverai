@@ -25,8 +25,7 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install root dependencies (if any)
-        run: npm ci
+# Root dependencies step removed because there is no package.json at repository root
 
       - name: Install extension dependencies
         working-directory: ./extension
@@ -47,6 +46,17 @@ jobs:
       - name: Build Chrome extension
         working-directory: ./extension
         run: npm run build
+      - name: Package extension zip
+        working-directory: ./extension
+        run: |
+          zip -r ../hoverai-extension.zip dist
+          echo "ZIP created at ../hoverai-extension.zip"
+      - name: Upload extension zip artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hoverai-extension-zip
+          path: hoverai-extension.zip
 
       - name: Archive built extension
         if: always()

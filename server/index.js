@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 // Using native fetch (Node 18+)
 
 const app = express();
@@ -44,7 +45,7 @@ SELECTED WORD: "${selected_word}"
 CONTEXT (max ~1 line): "${trimmedContext || 'No context provided'}"
 
 REQUIREMENTS:
-- Provide a concise definition (1-2 sentences max)
+    - Provide a clear and complete definition
 - Focus on the meaning SPECIFIC to this context
 - Tone: Clear, helpful, slightly conversational but professional
 - Do NOT provide etymology, pronunciation, or multiple definitions unless context demands it
@@ -77,7 +78,7 @@ async function callLLM(prompt) {
           model: LLM_MODEL,
           messages: [{ role: 'user', content: prompt }],
           temperature: 0.3,
-          max_tokens: 150
+          max_tokens: 300
         })
       });
 
@@ -99,7 +100,7 @@ async function callLLM(prompt) {
         },
         body: JSON.stringify({
           model: LLM_MODEL,
-          max_tokens: 150,
+          max_tokens: 300,
           temperature: 0.3,
           messages: [{ role: 'user', content: prompt }]
         })
@@ -124,7 +125,7 @@ async function callLLM(prompt) {
           contents: [{ role: 'user', parts: [{ text: prompt }] }],
           generationConfig: {
             temperature: 0.3,
-            maxOutputTokens: 150,
+            maxOutputTokens: 1000,
           }
         })
       });
@@ -149,7 +150,7 @@ async function callLLM(prompt) {
           model: LLM_MODEL,
           messages: [{ role: 'user', content: prompt }],
           temperature: 0.3,
-          max_tokens: 150
+          max_tokens: 300
         })
       });
 

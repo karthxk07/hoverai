@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const themeSelect = document.getElementById('theme-select');
   const aiSelect = document.getElementById('ai-select');
   const customUrlInput = document.getElementById('custom-url');
-  const serverUrlInput = document.getElementById('server-url');
+  // serverUrlInput removed as it does not exist in popup.html
 
   // Load settings
   const settings = await chrome.storage.local.get(['enabled', 'theme', 'aiProvider', 'customUrl']);
@@ -38,5 +38,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateSettings();
   });
   customUrlInput.addEventListener('input', updateSettings);
-  serverUrlInput.addEventListener('input', updateSettings);
 });

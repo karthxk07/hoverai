@@ -139,6 +139,7 @@ document.addEventListener("mouseup", async (event) => {
         type: 'FETCH_MEANING',
         payload: { context: pageContext, selected_word: text }
       });
+      console.log('RAW MEANING RECEIVED:', meaning);
       meaningBox.textContent = meaning;
     } catch (error) {
       console.error('Error fetching meaning:', error);
